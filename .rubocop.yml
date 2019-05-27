@@ -1,0 +1,9 @@
+AllCops:
+  TargetRubyVersion: 2.6
+  Exclude:
+    - 'config/**/*'
+    - 'bin/*'
+    - 'Gemfile'
+
+Documentation:
+  Enabled: false
