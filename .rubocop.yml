@@ -4,6 +4,7 @@ AllCops:
     - 'config/**/*'
     - 'bin/*'
     - 'Gemfile'
+    - 'db/migrate/*'
 
 Documentation:
   Enabled: false

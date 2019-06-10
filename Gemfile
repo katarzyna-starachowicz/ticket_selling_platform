@@ -8,6 +8,9 @@ gem 'sqlite3'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'puma', '~> 3.11'
 
+gem 'dry-types'
+gem 'dry-struct'
+
 group :development, :test do
   gem 'byebug', platforms: %I[mri mingw x64_mingw]
   gem 'rspec-rails', '~> 3.8'
