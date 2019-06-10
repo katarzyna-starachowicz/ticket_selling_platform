@@ -3,15 +3,12 @@
 require 'rails_helper'
 
 describe 'Event Respository' do
-  shared_examples_for 'event repository' do
-    before do
-      subject.create_event(event_1)
-      subject.create_event(event_2)
-    end
+  let(:event_repository) { subject }
 
+  shared_examples_for 'event repository' do
     describe '#find_all' do
-      let(:returned_event_1) { subject.find_all.first }
-      let(:returned_event_2) { subject.find_all.second }
+      let(:returned_event_1) { event_repository.find_all.first }
+      let(:returned_event_2) { event_repository.find_all.second }
 
       context 'first event' do
         it 'returns proper event name' do
@@ -75,29 +72,15 @@ describe 'Event Respository' do
     end
   end
 
-  let(:event_1) do
-    Entities::Event.new(
-      name: 'Name 1',
-      date: Date.new(2019, 10, 19),
-      time: Time.new(2019, 10, 19, 17, 0)
-    )
-  end
-
-  let(:event_2) do
-    Entities::Event.new(
-      name: 'Name 2',
-      date: Date.new(2019, 10, 19),
-      time: Time.new(2019, 10, 19, 18, 30)
-    )
-  end
-
   describe Repositories::Sql::Event do
+    include_context 'two events'
     after { DatabaseCleaner.clean }
 
     it_behaves_like 'event repository'
   end
 
   describe Repositories::InMemory::Event do
+    include_context 'two events'
     it_behaves_like 'event repository'
   end
 end
