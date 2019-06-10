@@ -3,6 +3,7 @@
 module Entities
   class Event < Dry::Struct
     attribute :name, Types::Strict::String
-    attribute :time, Types::Strict::Time
+    attribute :date, Types::Date
+    attribute :time, Types::Time
   end
 end

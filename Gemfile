@@ -13,7 +13,6 @@ gem 'dry-struct'
 
 group :development, :test do
   gem 'byebug', platforms: %I[mri mingw x64_mingw]
-  gem 'rspec-rails', '~> 3.8'
   gem 'rubocop', '~> 0.70.0', require: false
 end
 
@@ -23,4 +22,8 @@ group :development do
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
 
+group :test do
+  gem 'rspec-rails', '~> 3.8'
+  gem 'database_cleaner'
+end
 gem 'tzinfo-data', platforms: %I[mingw mswin x64_mingw jruby]
