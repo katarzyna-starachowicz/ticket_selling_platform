@@ -9,7 +9,7 @@ module Services
     private
 
     def event_service
-      Event.new(event_repository)
+      ::Services::Event.new(event_repository)
     end
 
     def event_repository

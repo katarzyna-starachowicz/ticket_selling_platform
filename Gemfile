@@ -8,6 +8,7 @@ gem 'sqlite3'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'puma', '~> 3.11'
 
+gem 'responders'
 gem 'dry-types'
 gem 'dry-struct'
 
