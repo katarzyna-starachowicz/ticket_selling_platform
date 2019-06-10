@@ -10,9 +10,12 @@ module Services
 
     def load_all_events
       all_events = event_repository.find_all
+      all_events_data = all_events.map do |event|
+        ReadModels::EventDetailsData.build(event)
+      end
 
       ReadModels::EventsData.new(
-        events: all_events.map { |event| ReadModels::EventDetailsData.build(event) }
+        events: all_events_data
       )
     end
   end

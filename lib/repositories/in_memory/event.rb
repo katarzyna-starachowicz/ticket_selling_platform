@@ -19,4 +19,3 @@ module Repositories
     end
   end
 end
-
