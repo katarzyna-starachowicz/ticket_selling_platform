@@ -6,6 +6,10 @@ module Services
       event_service.load_all_events
     end
 
+    def load_event_details(id)
+      event_service.load_event_details(id)
+    end
+
     private
 
     def event_service

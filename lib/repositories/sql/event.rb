@@ -7,6 +7,10 @@ module Repositories
         ::Event.all.map { |event| build_entity(event) }
       end
 
+      def find_one(id)
+        ::Event.find(id)
+      end
+
       def create_event(event_entity)
         ::Event.create(
           name: event_entity.name,

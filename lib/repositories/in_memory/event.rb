@@ -13,6 +13,10 @@ module Repositories
         events
       end
 
+      def find_one(id)
+        events[id - 1]
+      end
+
       def create_event(event_entity)
         events << event_entity
       end

@@ -18,5 +18,12 @@ module Services
         events: all_events_data
       )
     end
+
+    def load_event_details(id)
+      event = event_repository.find_one(id)
+      ReadModels::EventData.new(
+        event: ReadModels::EventDetailsData.build(event)
+      )
+    end
   end
 end

@@ -2,6 +2,6 @@
 
 module ReadModels
   class EventData < Dry::Struct
-    attribute :event, Types::Strict::Array.of(EventDetailsData)
+    attribute :event, ::ReadModels::EventDetailsData
   end
 end
