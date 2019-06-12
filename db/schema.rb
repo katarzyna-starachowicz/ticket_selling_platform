@@ -10,12 +10,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_10_125515) do
+ActiveRecord::Schema.define(version: 2019_06_12_194727) do
 
   create_table "events", force: :cascade do |t|
     t.string "name"
     t.time "time"
     t.date "date"
+  end
+
+  create_table "tickets", force: :cascade do |t|
+    t.float "price_amount"
+    t.string "price_currency"
+    t.string "status"
+    t.string "reservation_token"
+    t.string "bought_by"
+    t.integer "event_id"
+    t.index ["event_id"], name: "index_tickets_on_event_id"
   end
 
 end
