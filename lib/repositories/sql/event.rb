@@ -4,11 +4,19 @@ module Repositories
   module Sql
     class Event
       def find_all
-        ::Event.all.map { |event| build_entity(event) }
+        ::Event.all.map do |event|
+          build_entity(
+            event,
+            find_number_of_available_tickets(event.id)
+          )
+        end
       end
 
       def find_one(id)
-        ::Event.find(id)
+        build_entity(
+          ::Event.find(id),
+          find_number_of_available_tickets(id)
+        )
       end
 
       def create_event(event_entity)
@@ -21,11 +29,16 @@ module Repositories
 
       private
 
-      def build_entity(event)
+      def find_number_of_available_tickets(event_id)
+        ::Ticket.where(event_id: event_id, status: 'avaiable').count
+      end
+
+      def build_entity(event, number_of_available_tickets)
         Entities::Event.new(
           name: event.name,
           date: event.date,
-          time: event.time
+          time: event.time,
+          avaiable_tickets: number_of_available_tickets
         )
       end
     end
