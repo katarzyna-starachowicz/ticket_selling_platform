@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_06_12_194727) do
+ActiveRecord::Schema.define(version: 2019_06_22_115901) do
 
   create_table "events", force: :cascade do |t|
     t.string "name"
@@ -25,6 +25,7 @@ ActiveRecord::Schema.define(version: 2019_06_12_194727) do
     t.string "reservation_token"
     t.string "bought_by"
     t.integer "event_id"
+    t.integer "lock_version", default: 0
     t.index ["event_id"], name: "index_tickets_on_event_id"
   end
 

@@ -30,7 +30,7 @@ module Repositories
       private
 
       def find_number_of_available_tickets(event_id)
-        ::Ticket.where(event_id: event_id, status: 'avaiable').count
+        ::Ticket.where(event_id: event_id, status: 'available').count
       end
 
       def build_entity(event, number_of_available_tickets)
@@ -38,7 +38,7 @@ module Repositories
           name: event.name,
           date: event.date,
           time: event.time,
-          avaiable_tickets: number_of_available_tickets
+          available_tickets: number_of_available_tickets
         )
       end
     end

@@ -6,7 +6,7 @@ RSpec.shared_context 'two events' do
       name: 'Name 1',
       date: Date.new(2019, 10, 19),
       time: Time.new(2019, 10, 19, 17, 0),
-      avaiable_tickets: nil
+      available_tickets: nil
     )
   end
 
@@ -15,7 +15,7 @@ RSpec.shared_context 'two events' do
       name: 'Name 2',
       date: Date.new(2019, 10, 19),
       time: Time.new(2019, 10, 19, 18, 30),
-      avaiable_tickets: nil
+      available_tickets: nil
     )
   end
 

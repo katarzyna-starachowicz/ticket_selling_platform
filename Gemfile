@@ -11,6 +11,7 @@ gem 'puma', '~> 3.11'
 gem 'responders'
 gem 'dry-types'
 gem 'dry-struct'
+gem 'dry-validation'
 
 group :development, :test do
   gem 'byebug', platforms: %I[mri mingw x64_mingw]
