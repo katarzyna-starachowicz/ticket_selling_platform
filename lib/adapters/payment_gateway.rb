@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Adapters
-  class PaymentyGateway
+  class PaymentGateway
     CardError    = Class.new(StandardError)
     PaymentError = Class.new(StandardError)
 

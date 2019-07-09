@@ -10,12 +10,12 @@ module Repositories
           tries += 1
           ticket = ::Ticket.find_by(event_id: event_id, status: 'available')
 
+          validate_ticket!(ticket, event_id)
+
           ticket.update(
             status: 'reserved',
             reservation_token: reservation_token
           )
-
-          validate_ticket!(ticket)
 
           build_reserved_ticket_entity(ticket)
         rescue ActiveRecord::StaleObjectError
@@ -24,6 +24,16 @@ module Repositories
         end
       end
       # rubocop:enable Metrics/MethodLength
+
+      def buy_one(reserved_ticket, buyer_email)
+        ticket = ::Ticket.find(reserved_ticket.id)
+        ticket.update(
+          status: 'bought',
+          bought_by: buyer_email
+        )
+
+        build_bought_ticket_entity(ticket)
+      end
 
       def build_reserved_ticket_entity(ticket)
         Entities::ReservedTicket.new(
@@ -37,7 +47,14 @@ module Repositories
 
       private
 
-      def validate_ticket!(ticket)
+      def build_bought_ticket_entity(ticket)
+        Entities::BoughtTicket.new(
+          id: ticket.id,
+          buyer_email: ticket.bought_by
+        )
+      end
+
+      def validate_ticket!(ticket, event_id)
         raise_no_available_tickets_error(event_id) if ticket.blank?
       end
 

@@ -13,6 +13,8 @@ gem 'dry-types'
 gem 'dry-struct'
 gem 'dry-validation'
 
+gem 'sidekiq'
+
 group :development, :test do
   gem 'byebug', platforms: %I[mri mingw x64_mingw]
   gem 'rubocop', '~> 0.70.0', require: false
