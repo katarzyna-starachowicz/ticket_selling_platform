@@ -3,17 +3,23 @@
 module Repositories
   module Sql
     class Ticket
+      attr_reader :ticket_status_provider
+
+      def initialize(ticket_status_provider)
+        @ticket_status_provider = ticket_status_provider
+      end
+
       # rubocop:disable Metrics/MethodLength
       def reserve_one_for_event(event_id, reservation_token)
         tries = 0
         begin
           tries += 1
-          ticket = ::Ticket.find_by(event_id: event_id, status: 'available')
+          ticket = ::Ticket.find_by(event_id: event_id, status: ticket_status_provider.available)
 
           validate_ticket!(ticket, event_id)
 
           ticket.update(
-            status: 'reserved',
+            status: ticket_status_provider.reserved,
             reservation_token: reservation_token
           )
 
@@ -28,7 +34,7 @@ module Repositories
       def buy_one(reserved_ticket, buyer_email)
         ticket = ::Ticket.find(reserved_ticket.id)
         ticket.update(
-          status: 'bought',
+          status: ticket_status_provider.bought,
           bought_by: buyer_email
         )
 

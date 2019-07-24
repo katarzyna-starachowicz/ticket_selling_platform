@@ -51,11 +51,11 @@ module Services
     end
 
     def event_repository
-      ::Repositories::Sql::Event.new
+      ::Repositories::Sql::Event.new(ticket_status_provider)
     end
 
     def ticket_repository
-      ::Repositories::Sql::Ticket.new
+      ::Repositories::Sql::Ticket.new(ticket_status_provider)
     end
 
     def payment_gateway

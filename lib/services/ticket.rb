@@ -42,7 +42,7 @@ module Services
       sought_ticket = build_sought_checked_ticket(checked_ticket)
       found_ticket = ticket_repository.find_checked_ticket(sought_ticket.id)
 
-      payment_status = ticket_status_provider.ticket_payment_status(
+      payment_status = ticket_status_provider.checked_ticket_payment_status(
         sought_ticket,
         found_ticket
       )
