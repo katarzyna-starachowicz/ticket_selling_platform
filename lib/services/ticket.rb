@@ -2,11 +2,13 @@
 
 module Services
   class Ticket
-    attr_reader :ticket_repository, :reservation_token_generator
+    attr_reader :ticket_repository, :reservation_token_generator,
+                :ticket_status_provider
 
-    def initialize(ticket_repository, reservation_token_generator)
+    def initialize(ticket_repository, reservation_token_generator, ticket_status_provider)
       @ticket_repository = ticket_repository
       @reservation_token_generator = reservation_token_generator
+      @ticket_status_provider = ticket_status_provider
     end
 
     def request_ticket_payment(ticket_purchase_values)
@@ -36,7 +38,29 @@ module Services
       ticket_repository.buy_one(reserved_ticket, ticket_payment.user_email)
     end
 
+    def check_ticket_payment_status(checked_ticket)
+      sought_ticket = build_sought_checked_ticket(checked_ticket)
+      found_ticket = ticket_repository.find_checked_ticket(sought_ticket.id)
+
+      payment_status = ticket_status_provider.ticket_payment_status(
+        sought_ticket,
+        found_ticket
+      )
+
+      ReadModels::ReservedTicketPaymentStatusDetailsData.new(
+        payment_status: payment_status
+      )
+    end
+
     private
+
+    def build_sought_checked_ticket(ticket_params)
+      ::Entities::SoughtCheckedTicket.new(
+        id: ticket_params[:ticket_id],
+        event_id: ticket_params[:event_id],
+        reservation_token: ticket_params[:reservation_token]
+      )
+    end
 
     def build_ticket_payment(payment_values)
       ::Entities::TicketPayment.new(

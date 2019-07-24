@@ -45,6 +45,17 @@ module Repositories
         )
       end
 
+      def find_checked_ticket(id)
+        ticket = ::Ticket.find(id)
+
+        Entities::FoundCheckedTicket.new(
+          id: ticket.id,
+          event_id: ticket.event_id,
+          reservation_token: ticket.reservation_token,
+          status: ticket.status
+        )
+      end
+
       private
 
       def build_bought_ticket_entity(ticket)

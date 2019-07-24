@@ -26,6 +26,10 @@ module Services
       ticket_service.release_ticket(reserved_ticket)
     end
 
+    def check_ticket_payment_status(checked_ticket)
+      ticket_service.check_ticket_payment_status(checked_ticket)
+    end
+
     private
 
     def event_service
@@ -35,7 +39,8 @@ module Services
     def ticket_service
       ::Services::Ticket.new(
         ticket_repository,
-        reservation_token_generator
+        reservation_token_generator,
+        ticket_status_provider
       )
     end
 
@@ -59,6 +64,10 @@ module Services
 
     def reservation_token_generator
       ::Adapters::ReservationTokenGenerator.new
+    end
+
+    def ticket_status_provider
+      ::Providers::TicketStatus.new
     end
   end
 end
